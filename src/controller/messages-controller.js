@@ -6,13 +6,13 @@ const MessagesPresenter = require('../presenter/messages-presenter.js');
 
 class MessagesController {
   static async create(req, res) {
-    const body = req.body
+    const body = req.body;
     const [sender, conversation] = await Promise.all([
       UsersService.find(req.params.userId),
       ConversationsService.findById(req.params.conversationId)
     ]);
 
-    const recipients = conversation.users.filter(user => user != sender.id)
+    const recipients = conversation.users.filter(user => user != sender.id);
 
     Message.create({
       sender: sender,
@@ -21,13 +21,13 @@ class MessagesController {
       content: body.message,
       createdAt: new Date()
     }, (err, _) => {
-      if (err) return res.sendStatus(500)
+      if (err) return res.sendStatus(500);
       res.sendStatus(200);
     });
   }
 
   static async showConversation(req, res) {
-    const messages = await MessagesService.getAllForConversation(req.params.conversationId)
+    const messages = await MessagesService.getAllForConversation(req.params.conversationId);
     res.send({ messages });
   }
 

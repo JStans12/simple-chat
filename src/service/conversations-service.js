@@ -2,7 +2,7 @@ const Conversation = require('../model/conversation.js');
 
 class ConversationsService {
   static async findById(conversationId) {
-    const conversation = await Conversation.findById(conversationId)
+    const conversation = await Conversation.findById(conversationId);
     return conversation;
   }
 

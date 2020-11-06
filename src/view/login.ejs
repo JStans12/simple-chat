@@ -12,8 +12,8 @@
     </form>
     <script>
       $('#message-form').on('submit', function(e) {
-        e.preventDefault()
-        const messageForm = $(this)
+        e.preventDefault();
+        const messageForm = $(this);
 
         $.ajax({
           url: `/login`,

@@ -15,14 +15,14 @@
     <script>
 
       $( document ).ready(function() {
-        const token = Cookies.get('token')
+        const token = Cookies.get('token');
         if (token == null) { window.location.replace('/'); }
       });
 
       $('#message-form').on('submit', function(e) {
-        e.preventDefault()
-        const messageForm = $(this)
-        $('#sender').val(Cookies.get('token'))
+        e.preventDefault();
+        const messageForm = $(this);
+        $('#sender').val(Cookies.get('token'));
 
         $.ajax({
           url: `/conversations`,

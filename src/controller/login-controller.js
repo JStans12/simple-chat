@@ -8,7 +8,7 @@ class LoginController {
     This is used to determine the sender of the message.
     It could also be used to verify the sender if it was a real token.
     */
-    const id = user.id
+    const id = user.id;
     res.cookie('token', id);
     return res.send({ id });
   }

@@ -37,11 +37,11 @@
       });
 
       $('#message-form').on('submit', function(e) {
-        e.preventDefault()
-        const token = Cookies.get('token')
+        e.preventDefault();
+        const token = Cookies.get('token');
         const conversationId = Cookies.get('conversationId');
-        $('#conversationId').val(Cookies.get('conversationId'))
-        const messageForm = $(this)
+        $('#conversationId').val(Cookies.get('conversationId'));
+        const messageForm = $(this);
 
         $.ajax({
           url: `/conversations/${conversationId}/users/${token}/messages`,
@@ -66,17 +66,17 @@
       }
 
       function populateMessages(messages) {
-        const list = $('#messages')
-        list.empty()
-        const token = Cookies.get('token')
+        const list = $('#messages');
+        list.empty();
+        const token = Cookies.get('token');
         for (i = 0; i < messages.length; i++) {
-          const msg = messages[i]
-          var sender
+          const msg = messages[i];
+          var sender;
 
           if (msg.sender == token) {
-            sender = "me"
+            sender = "me";
           } else {
-            sender = "other"
+            sender = "other";
           }
 
           list.append($(`<li class=${sender}>${msg.content}</li>`));

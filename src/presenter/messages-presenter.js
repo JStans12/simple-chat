@@ -1,6 +1,6 @@
 class MessagesPresenter {
   static serialize(messages) {
-    const result = []
+    const result = [];
     messages.forEach(message => {
       result.push({
         sender: message.sender.name,

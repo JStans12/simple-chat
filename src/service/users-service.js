@@ -7,13 +7,13 @@ class UsersService {
   }
 
   static async findByName(name) {
-    const user = await User.findOne({ name: name })
-    return user
+    const user = await User.findOne({ name: name });
+    return user;
   }
 
   static async findOrCreateUser(name) {
-    const user = await User.findOne({ name: name })
-    return user != null ? user : User.create({ name: name })
+    const user = await User.findOne({ name: name });
+    return user != null ? user : User.create({ name: name });
   }
 }
 

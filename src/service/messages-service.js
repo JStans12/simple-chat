@@ -10,15 +10,15 @@ class MessagesService {
     if (recent) {
       var date = new Date();
       date.setDate(date.getDate() - 30);
-      params['createdAt'] = { '$gte': date }
+      params['createdAt'] = { '$gte': date };
     }
 
     if (sender) {
-      params['sender'] = sender
+      params['sender'] = sender;
     }
 
     if (recipient) {
-      params['recipients'] = { '$in': recipient }
+      params['recipients'] = { '$in': recipient };
     }
 
     const messages = await Message.find(params)
