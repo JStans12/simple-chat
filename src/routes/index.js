@@ -8,4 +8,7 @@ module.exports = function(app) {
 
   const conversations = require('./conversations.js');
   app.use('/conversations', conversations);
+
+  const messages = require('./messages.js');
+  app.use('/messages', messages);
 };

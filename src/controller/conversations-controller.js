@@ -1,5 +1,5 @@
 const ConversationsService = require('../service/conversations-service.js');
-const UsersService = require('../service/users-service.js')
+const UsersService = require('../service/users-service.js');
 
 class ConversationsController {
   static async start(req, res) {
@@ -7,6 +7,7 @@ class ConversationsController {
   }
 
   static async create(req, res) {
+    console.log(req.body.sender)
     const users = await Promise.all([
       UsersService.find(req.body.sender),
       UsersService.findOrCreateUser(req.body.recipient)
