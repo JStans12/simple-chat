@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Message</title>
+    <style>
+        #messages { list-style-type: none; margin: 0; padding: 0; width: 400px; }
+        #messages li { padding: 5px 10px; }
+        #messages li.me { text-align: right; background-color: aqua }
+        #messages li.other { text-align: left; background-color: grey }
+    </style>
+    <script src="../../../socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+
+    <form id="message-form">
+      <input type="hidden", name="conversationId", id="conversationId">
+      <input type="text" placeholder="Say something!", name="message">
+      <button type="submit">Send</button>
+    </form>
+    <script>
+
+      var socket = io.connect('http://localhost:8080');
+
+      socket.on('update-conversation', function() {
+        loadMessages()
+      });
+
+      $(document).ready(function() {
+        loadMessages()
+        const token = Cookies.get('token');
+        const conversationId = Cookies.get('conversationId');
+        socket.emit('join-conversation', { conversationId: conversationId });
+        if (token == null) { window.location.replace('/'); }
+      });
+
+      $('#message-form').on('submit', function(e) {
+        e.preventDefault()
+        const token = Cookies.get('token')
+        const conversationId = Cookies.get('conversationId');
+        $('#conversationId').val(Cookies.get('conversationId'))
+        const messageForm = $(this)
+
+        $.ajax({
+          url: `/conversations/${conversationId}/users/${token}/messages`,
+          type: 'POST',
+          data: messageForm.serialize(),
+          success: () => {
+            messageForm[0].reset()
+            socket.emit('chatted', { conversationId: conversationId });
+          }
+        });
+      });
+
+      function loadMessages() {
+        const conversationId = Cookies.get('conversationId');
+        $.ajax({
+          url: `/conversations/${conversationId}/messages`,
+          type: 'GET',
+          success: (res) => {
+            populateMessages(res.messages)
+          }
+        });
+      }
+
+      function populateMessages(messages) {
+        const list = $('#messages')
+        list.empty()
+        const token = Cookies.get('token')
+        for (i = 0; i < messages.length; i++) {
+          const msg = messages[i]
+          var sender
+
+          if (msg.sender == token) {
+            sender = "me"
+          } else {
+            sender = "other"
+          }
+
+          list.append($(`<li class=${sender}>${msg.content}</li>`));
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Message</title>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  </head>
+  <body>
+    <h3>Login</h3>
+    <form id="message-form">
+      <input type="text" placeholder="Name?", name="sender">
+      <button type="submit">Send</button>
+    </form>
+    <script>
+      $('#message-form').on('submit', function(e) {
+        e.preventDefault()
+        const messageForm = $(this)
+
+        $.ajax({
+          url: `/login`,
+          type: 'POST',
+          data: messageForm.serialize(),
+          success: (res) => {
+            window.location.replace('/conversations');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
