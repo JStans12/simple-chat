@@ -1,5 +1,5 @@
 ## About
-This project is a simple chat app build with node, express.js, mongodb and socket.io.
+This project is a simple chat app built with node, express.js, mongodb and socket.io.
 
 ## Setup
 
@@ -11,7 +11,7 @@ You will need node and npm. I recommend installing with [homebrew](https://brew.
 brew install node
 ```
 
-I used a local MongoDB connection for this project. There is a detailed guide for getting set up [here](https://zellwk.com/blog/local-mongodb/)
+I used a local MongoDB connection for this project. There is a detailed guide for getting set up [here](https://zellwk.com/blog/local-mongodb/).
 
 #### Clone The Repo
 
